@@ -1,39 +1,94 @@
-# Project Name
+# System Design Capstone
 
-> Project description
+Inherited Project to build & optimize database and server to handle webscale traffic
 
-## Related Projects
+Frontend Owner: **Brandon Rusell**
+Backend Owner: **Rodrigo Saavedra**
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+This service shows the main gallery for a trulia-like website.
 
-## Table of Contents
+# Database Schema:
 
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
+This is the original data-shape of a listing:
 
-## Usage
+  {
+  listing_id: Number,
+  topHeader: {
+    sale: Boolean,
+    pending: Boolean,
+    new: Boolean,
+    construction: Boolean,
+  },
+  address: String,
+  price: Number,
+  bed: Number,
+  bath: Number,
+  images: Array,
+  }
 
-> Some usage instructions
 
-## Requirements
+# Server API
 
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
+## Get Listing
 
-- Node 6.13.0
-- etc
+> GET `/:id/homesData`
+**Path Parameters:** Expects `id` to be an integer
+**Success Status Code:** `200`
 
-## Development
+**Response Body:** Expects JSON with the following keys
 
-### Installing Dependencies
+ {
+   "_id": "Integer",
+  "listing_id": "Integer",
+  "topHeader": {
+    "sale": "Boolean",
+    "pending": "Boolean",
+    "new": "Boolean",
+    "construction": "Boolean",
+  },
+  "address": "String",
+  "price": "Integer",
+  "bed": "Integer",
+  "bath": "Integer",
+  "images": ["String"],
+  }
 
-From within the root directory:
+## Add Listing
 
-```sh
-npm install -g webpack
-npm install
-```
+> POST `/addListing`
+**Success Status Code:** `201`
 
+**Request Body:** Expects JSON with the following keys
+
+  {
+  "listing_id": "Integer",
+  "topHeader": {
+    "sale": "Boolean",
+    "pending": "Boolean",
+    "new": "Boolean",
+    "construction": "Boolean",
+  },
+  "address": "String",
+  "price": "Integer",
+  "bed": "Integer",
+  "bath": "Integer",
+  "images": ["String"],
+  }
+
+## Update (modify) Listing
+
+> PATCH `/:id/homesData/update/`
+**Path Parameters:** Expects `id` to be an integer
+**Success Status Code:** `200`
+
+**Request Body:** Expects JSON with the key-value pairs to be updated
+Ex.
+  {
+    "address": "String"
+  }
+
+## Delete Lisitng
+
+> DELETE `/:id/homesData/delete`
+**Path Parameters:** Expects `id` to be an integer
+**Success Status Code:** `204`

@@ -14,7 +14,7 @@ app.use('/gallery/:id', express.static('client/dist'));
 // app.get('/listings/:id/db', controller.getAll);
 
 app.listen(PORT, () => {
-  console.log(`Listening on 127.0.0.1:${PORT}`);
+  console.log(`Listening on localhost:${PORT}/gallery/1/`);
 });
 
 // app.get('/db', controller.get);

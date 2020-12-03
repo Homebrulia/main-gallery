@@ -11,7 +11,7 @@ This service shows the main gallery for a trulia-like website.
 
 This is the original data-shape of a listing:
 
-  ```{
+  {
   listing_id: Number,
   topHeader: {
     sale: Boolean,
@@ -24,7 +24,7 @@ This is the original data-shape of a listing:
   bed: Number,
   bath: Number,
   images: Array,
-  }```
+  }
 
 
 # Server API
@@ -37,7 +37,7 @@ GET `/:id/homesData`
 
 **Response Body:** Expects JSON with the following keys
 
- ```{
+ {
    "_id": "Integer",
   "listing_id": "Integer",
   "topHeader": {
@@ -51,7 +51,7 @@ GET `/:id/homesData`
   "bed": "Integer",
   "bath": "Integer",
   "images": ["String"],
-  }```
+  }
 
 ## Add Listing
 
@@ -60,7 +60,7 @@ POST `/addListing`
 
 **Request Body:** Expects JSON with the following keys
 
-  ```{
+  {
   "listing_id": "Integer",
   "topHeader": {
     "sale": "Boolean",
@@ -73,7 +73,7 @@ POST `/addListing`
   "bed": "Integer",
   "bath": "Integer",
   "images": ["String"],
-  }```
+  }
 
 ## Update (modify) Listing
 
@@ -83,9 +83,9 @@ PATCH `/:id/homesData/update/`
 
 **Request Body:** Expects JSON with the key-value pairs to be updated
 Ex.
-  ```{
+  {
     "address": "String"
-  }```
+  }
 
 ## Delete Lisitng
 

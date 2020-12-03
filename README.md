@@ -11,7 +11,7 @@ This service shows the main gallery for a trulia-like website.
 
 This is the original data-shape of a listing:
 
-  {
+  ```{
   listing_id: Number,
   topHeader: {
     sale: Boolean,
@@ -24,20 +24,20 @@ This is the original data-shape of a listing:
   bed: Number,
   bath: Number,
   images: Array,
-  }
+  }```
 
 
 # Server API
 
 ## Get Listing
 
-> GET `/:id/homesData`
+GET `/:id/homesData`
 **Path Parameters:** Expects `id` to be an integer
 **Success Status Code:** `200`
 
 **Response Body:** Expects JSON with the following keys
 
- {
+ ```{
    "_id": "Integer",
   "listing_id": "Integer",
   "topHeader": {
@@ -51,16 +51,16 @@ This is the original data-shape of a listing:
   "bed": "Integer",
   "bath": "Integer",
   "images": ["String"],
-  }
+  }```
 
 ## Add Listing
 
-> POST `/addListing`
+POST `/addListing`
 **Success Status Code:** `201`
 
 **Request Body:** Expects JSON with the following keys
 
-  {
+  ```{
   "listing_id": "Integer",
   "topHeader": {
     "sale": "Boolean",
@@ -73,22 +73,22 @@ This is the original data-shape of a listing:
   "bed": "Integer",
   "bath": "Integer",
   "images": ["String"],
-  }
+  }```
 
 ## Update (modify) Listing
 
-> PATCH `/:id/homesData/update/`
+PATCH `/:id/homesData/update/`
 **Path Parameters:** Expects `id` to be an integer
 **Success Status Code:** `200`
 
 **Request Body:** Expects JSON with the key-value pairs to be updated
 Ex.
-  {
+  ```{
     "address": "String"
-  }
+  }```
 
 ## Delete Lisitng
 
-> DELETE `/:id/homesData/delete`
+DELETE `/:id/homesData/delete`
 **Path Parameters:** Expects `id` to be an integer
 **Success Status Code:** `204`

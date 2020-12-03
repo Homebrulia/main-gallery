@@ -11,7 +11,7 @@ This service shows the main gallery for a trulia-like website.
 
 This is the original data-shape of a listing:
 
-  {
+  ``{
   listing_id: Number,
   topHeader: {
     sale: Boolean,
@@ -24,7 +24,7 @@ This is the original data-shape of a listing:
   bed: Number,
   bath: Number,
   images: Array,
-  }
+  }``
 
 
 # Server API

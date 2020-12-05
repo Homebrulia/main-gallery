@@ -209,7 +209,7 @@ GET `/:id/userData`
   }]
 }
 ```
-## Get User
+## Get Agent
 
 GET `/:id/agentData`
 - **Path Parameters:** Expects `id` to be an integer

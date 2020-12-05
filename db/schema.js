@@ -3,29 +3,6 @@ var mongo = require('./mongo.js');
 
 mongoose.connect('mongodb://localhost/main-gallery-listings');
 
-var listingSchema = mongoose.Schema({
-  listing_id: Number,
-  sale: Boolean,
-  pending: Boolean,
-  new: Boolean,
-  construction: Boolean,
-  petFriendly: Boolean,
-  address: {
-    type: String,
-    maxLength: 80,
-    required: true
-  },
-  price: Number,
-  bed: {
-    type: Number,
-    required: true
-  },
-  bath: {
-    type: Number,
-    required: true
-  },
-  images: [String]
-});
 var userSchema = mongoose.Schema({
   user_id: Number,
   favorites: [listings],
@@ -65,6 +42,54 @@ var userSchema = mongoose.Schema({
     }
   }]
 });
+var agentSchema = mongoose.Schema({
+  agent_id: Number,
+  name: {
+    type: String,
+    maxLength: 80,
+    required: true
+  },
+  email: {
+    type: String,
+    maxLength: 80,
+    required: true
+  },
+  phoneNumber: {
+    type: String,
+    maxLength: 10,
+  },
+  location: String,
+  managing: [listings]
+});
+
+var listingSchema = mongoose.Schema({
+  listing_id: Number,
+  user_id: Number,
+  agent_id: Number,
+  sale: Boolean,
+  pending: Boolean,
+  new: Boolean,
+  construction: Boolean,
+  petFriendly: Boolean,
+  address: {
+    type: String,
+    maxLength: 80,
+    required: true
+  },
+  price: Number,
+  bed: {
+    type: Number,
+    required: true
+  },
+  bath: {
+    type: Number,
+    required: true
+  },
+  images: [String],
+  schools: [String],
+  crime: Number
+});
+
 
 let ListingsModel = mongoose.model('Listing', listingSchema);
 

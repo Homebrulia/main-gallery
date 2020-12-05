@@ -1,6 +1,8 @@
 
 CREATE SCHEMA falselia;
 
+SET search_path TO falselia, public;
+
 CREATE TABLE falselia.users (
     user_id INT PRIMARY KEY,
     location VARCHAR (80) NOT NULL,

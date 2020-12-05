@@ -1,6 +1,7 @@
-CREATE SCHEMA falseLia
 
-CREATE TABLE users (
+CREATE SCHEMA falselia;
+
+CREATE TABLE falselia.users (
     user_id INT PRIMARY KEY,
     location VARCHAR (80) NOT NULL,
     name VARCHAR (80) NOT NULL,
@@ -9,17 +10,17 @@ CREATE TABLE users (
     userType VARCHAR (12) NOT NULL,
     searches TEXT [],
     UNIQUE(name, email)
-)
-CREATE TABLE agents (
+);
+CREATE TABLE falselia.agents (
     agent_id INT PRIMARY KEY,
     location VARCHAR (80) NOT NULL,
     name VARCHAR (80) NOT NULL,
     email VARCHAR (80) NOT NULL,
     phoneNumber VARCHAR (10) NOT NULL,
     UNIQUE(name, email, phoneNumber)
-)
+);
 
- CREATE TABLE listings (
+ CREATE TABLE falselia.listings (
     listing_id INT PRIMARY KEY,
     user_id INT,
     agent_id INT,
@@ -37,25 +38,25 @@ CREATE TABLE agents (
     UNIQUE(address),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (agent_id) REFERENCES agents(agent_id)
-  )
+  );
 
-  CREATE TABLE paymentInfo (
+  CREATE TABLE falselia.paymentInfo (
     id SERIAL PRIMARY KEY,
     user_id INT,
     ccNumber VARCHAR (19),
     ccName VARCHAR (80),
     ccAddress VARCHAR (80),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
-  )
+  );
 
-  CREATE TABLE managing (
+  CREATE TABLE falselia.managing (
     agent_id int NOT NULL,
     listing_id int NOT NULL,
     PRIMARY KEY (agent_id, listing_id),
-    FOREIGN KEY (agent_id) REFERENCES agent(agent_id) ON UPDATE CASCADE,
+    FOREIGN KEY (agent_id) REFERENCES agents(agent_id) ON UPDATE CASCADE,
     FOREIGN KEY (listing_id) REFERENCES listings(listing_id) ON UPDATE CASCADE
-  )
-  CREATE TABLE favorites (
+  );
+  CREATE TABLE falselia.favorites (
     user_id int NOT NULL,
     listing_id int NOT NULL,
     PRIMARY KEY (user_id, listing_id),

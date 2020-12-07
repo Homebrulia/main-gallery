@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var mongo = require('./mongo.js');
 
-mongoose.connect('mongodb://localhost/main-gallery-listings');
+mongoose.connect('mongodb://localhost/main-gallery-listings', { useNewUrlParser: true, useUnifiedTopology: true });
 
 var listingSchema = mongoose.Schema({
   listing_id: Number,
@@ -104,4 +104,4 @@ function getAllListings(callback) {
 
 module.exports.ListingsModel = ListingsModel;
 module.exports.write = write;
-exports.getAllListings = getAllListings;
+module.exports.getAllListings = getAllListings;

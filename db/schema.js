@@ -32,7 +32,7 @@ var listingSchema = mongoose.Schema({
 });
 var userSchema = mongoose.Schema({
   user_id: Number,
-  favorites: [listingSchema],
+  favorites: [Number],
   searches: [String],
   name: {
     type: String,
@@ -52,20 +52,17 @@ var userSchema = mongoose.Schema({
   userType: String,
   paymentInfo: [{
     ccNumber: {
-      type: Number,
-      min: 13,
-      max: 19,
-      required: true
+      type: String,
+      minLength: 13,
+      maxLength: 19,
     },
     ccName: {
       type: String,
       maxLength: 80,
-      required: true
     },
     ccAddress: {
       type: String,
       maxLength: 80,
-      required: true
     }
   }]
 });
@@ -86,22 +83,66 @@ var agentSchema = mongoose.Schema({
     maxLength: 10,
   },
   location: String,
-  managing: [listingSchema]
+  managing: [Number]
 });
 
-
-
 let ListingsModel = mongoose.model('Listing', listingSchema);
+let UsersModel = mongoose.model('User', userSchema);
+let AgentsModel = mongoose.model('Agent', agentSchema);
 
 
-function write(listing, callback) {
-  ListingsModel.create(listing, callback)
+function insertOne(objType, obj, callback) {
+  switch (objType) {
+    case 'listing': {
+      ListingsModel.create(obj, callback)
+      break;
+    }
+    case 'user': {
+      UsersModel.create(obj, callback)
+      break;
+    }
+    case 'agent': {
+      AgentsModel.create(obj, callback)
+      break;
+    }
+  }
 }
-
-function getAllListings(callback) {
-  ListingsModel.find({}, callback);
+function insertMany(objType, arr, callback) {
+  switch (objType) {
+    case 'listing': {
+      ListingsModel.insertMany(arr, callback)
+      break;
+    }
+    case 'user': {
+      UsersModel.insertMany(arr, callback)
+      break;
+    }
+    case 'agent': {
+      AgentsModel.insertMany(arr, callback)
+      break;
+    }
+  }
+}
+function getAll(objType, callback) {
+  switch (objType) {
+    case 'listing': {
+      ListingsModel.find({}, callback);
+      break;
+    }
+    case 'user': {
+      UsersModel.find({}, callback);
+      break;
+    }
+    case 'agent': {
+      AgentsModel.find({}, callback);
+      break;
+    }
+  }
 }
 
 module.exports.ListingsModel = ListingsModel;
-module.exports.write = write;
-module.exports.getAllListings = getAllListings;
+module.exports.UsersModel = UsersModel;
+module.exports.AgentsModel = AgentsModel;
+module.exports.insertOne = insertOne;
+module.exports.insertMany = insertMany;
+module.exports.getAll = getAll;

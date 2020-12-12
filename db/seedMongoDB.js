@@ -97,7 +97,6 @@ function typeParser(objectType, element) {
   return element;
 }
 function addObjects(objectType, callback) {
-  let counter = 0;
   let headerRow = true;
   let header = [];
   let partialLines = [];
@@ -106,18 +105,18 @@ function addObjects(objectType, callback) {
   let reader = fs.createReadStream(`${__dirname}/data/${objectType}s.csv`)
     .setEncoding('utf8')
     .on('data', (chunk) => {
-      if (chunks.length > 100000) {
+      if (chunks.length > 250000) {
         console.log('reader paused, clearing buffer');
         reader.pause();
       } else {
         if (headerRow) {
-          header = chunk.split('\n')[0].split(',^,');
+          header = chunk.split('\n')[0].split('^');
           chunk = chunk.slice(chunk.indexOf('\n'), chunk.length);
           headerRow = false;
         }
         chunk = chunk.split('\n');
         chunk = chunk.slice(1, chunk.length - 1);
-        chunk = chunk.map((line) => line.split(',^,'));
+        chunk = chunk.map((line) => line.split('^'));
         chunk = chunk.map((line) => (
           '{' + line.map((item, index) => {
             if (item.length > 2 && item.indexOf('{') !== -1 && item.indexOf('}') !== -1) {
@@ -148,12 +147,12 @@ function addObjects(objectType, callback) {
       })
     })
     .on('end', () => {
-      console.log(`${objectType} data insertion done! Whole process took:`, `${(Date.now() - start) / (1000 * 60)} minutes`);
+      console.log(`${objectType} data insertion done! Whole process took:`, `${Math.round((Date.now() - start) / (1000 * 60))} minutes`);
       callback();
     });
 }
 
-addObjects('user', () => {
+addObjects('listing', () => {
   console.log('all done!');
 })
 

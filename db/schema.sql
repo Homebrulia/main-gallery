@@ -36,9 +36,9 @@ CREATE TABLE falselia.listings (
   price NUMERIC NOT NULL,
   bed SMALLINT NOT NULL,
   bath SMALLINT NOT NULL,
-  crime NUMERIC/*,
+  crime NUMERIC,
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-  FOREIGN KEY (agent_id) REFERENCES agents(agent_id) */
+  FOREIGN KEY (agent_id) REFERENCES agents(agent_id)
 );
 
 CREATE TABLE falselia.paymentInfo (
@@ -46,47 +46,29 @@ CREATE TABLE falselia.paymentInfo (
   user_id INT,
   ccNumber VARCHAR (19),
   ccName VARCHAR (80),
-  ccAddress VARCHAR (80)
-  /*,
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE */
-);
-
-CREATE TABLE falselia.managing (
-  agent_id int NOT NULL,
-  listing_id int NOT NULL,
-  PRIMARY KEY (agent_id, listing_id),
-  FOREIGN KEY (agent_id) REFERENCES agents(agent_id) ON UPDATE CASCADE,
-  FOREIGN KEY (listing_id) REFERENCES listings(listing_id) ON UPDATE CASCADE
-);
-
-CREATE TABLE falselia.favorites (
-  user_id int NOT NULL,
-  listing_id int NOT NULL,
-  PRIMARY KEY (user_id, listing_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,
-  FOREIGN KEY (listing_id) REFERENCES listings(listing_id) ON UPDATE CASCADE
+  ccAddress VARCHAR (80),
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE falselia.searches (
   search_id int PRIMARY KEY,
   user_id int NOT NULL,
-  saved_searches TEXT NOT NULL
-  /*,
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE */
+  saved_searches TEXT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE falselia.images (
   image_id int PRIMARY KEY,
   listing_id int NOT NULL,
-  image_url TEXT NOT NULL
-  /*,
-  FOREIGN KEY (listing_id) REFERENCES listings(listing_id) ON UPDATE CASCADE */
+  image_url TEXT NOT NULL,
+  FOREIGN KEY (listing_id) REFERENCES listings(listing_id) ON UPDATE CASCADE
 );
 
 CREATE TABLE falselia.schools (
   school_id int PRIMARY KEY,
   listing_id int NOT NULL,
-  school_name TEXT NOT NULL
-  /*,
-  FOREIGN KEY (listing_id) REFERENCES listings(listing_id) ON UPDATE CASCADE */
+  school_name TEXT NOT NULL,
+  FOREIGN KEY (listing_id) REFERENCES listings(listing_id) ON UPDATE CASCADE
 );
+
+

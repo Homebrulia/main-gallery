@@ -17,10 +17,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //udpate to axios get request to get the dummy data from the server side
-    //this.setState({groceries: dummyData})
-    axios.get(`${window.location}homesData`)
-    //http://localhost:8040/listings/1/
+    const queryString = window.location.pathname === '/' ? '/gallery/1' :  window.location.pathname;
+    axios.get('/api' + queryString + 'homesData')
     .then((res) => {
       this.setState({listing: res.data})
     })
@@ -30,20 +28,10 @@ class App extends React.Component {
   }
 
   nextListing(event) {
-    let url = window.location.href.split('/');
-    let id = parseInt(url[url.length - 2]);
-
-    if (id === 100) {
-      id = 1;
-      url[url.length - 2] = id;
-    } else {
-      id++;
-      url[url.length - 2] = id;
-    }
-    let prevListing = url.join('/')
-    console.log('New for URL :', prevListing)
-    window.location.assign(prevListing)
-    axios.get(prevListing)
+    let url = window.location.pathname.split('/').filter(n => n);
+    url[1]= Number(url[1]) + 1;
+    const queryString = url.join('/');
+    axios.get('/api' + queryString + 'homesData')
     .then((res) => {
       this.setState({listing: res.data})
     })
@@ -52,18 +40,13 @@ class App extends React.Component {
     });
   }
   previousListing(event) {
-    let url = window.location.href.split('/');
-    let id = parseInt(url[url.length - 2]);
-    if (id === 1) {
-      id = 100;
-      url[url.length - 2] = id;
-    } else {
-      id -= 1
-      url[url.length - 2] = id;
+    let url = window.location.pathname.split('/').filter(n => n);
+    url[1]= Number(url[1]) === 1 ? url[1] : Number(url[1]) - 1;
+    const queryString = url.join('/');
+    if (listing_id === 0) {
+      listing_id = 1;
     }
-    let prevListing = url.join('/')
-    window.location.assign(prevListing)
-    axios.get(prevListing)
+    axios.get(`${url}api/${listing_id}homesData`)
     .then((res) => {
       this.setState({listing: res.data})
     })

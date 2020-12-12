@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var controller = require('../controllers/listing.js');
+var router = require('./router.js');
+require('newrelic');
 
 // const path = require('path')
 
@@ -9,14 +10,15 @@ const PORT = 8040;
 
 app.use(bodyParser.json());
 app.use('/gallery/:id', express.static('client/dist'));
+app.use(express.static('client/dist'));
 
 
 // app.get('/listings/:id/db', controller.getAll);
 
 app.listen(PORT, () => {
-  console.log(`Listening on localhost:${PORT}/gallery/1/`);
+  console.log(`Listening on http://localhost:${PORT}/gallery/1/`);
 });
 
-// app.get('/db', controller.get);
-app.get('/*/:id/homesData', controller.getListings);
+
+app.use('/api/gallery', router);
 

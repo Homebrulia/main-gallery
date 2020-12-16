@@ -1,6 +1,5 @@
 var express = require('express');
 var controllers = require('../controllers/listing.js');
-
 var router = express.Router();
 
 router.get('/:id/homesData/', (req, res) => {
@@ -19,7 +18,7 @@ router.post('/homesData/', (req, res) => {
       console.log(err);
       res.status(404);
     } else {
-      res.status(200);
+      res.status(200).send(listing);
     }
   });
 });
@@ -39,7 +38,7 @@ router.post('/userData/', (req, res) => {
       console.log(err);
       res.status(404);
     } else {
-      res.status(200);
+      res.status(200).send(user);
     }
   });
 });
@@ -49,7 +48,7 @@ router.post('/agentData/', (req, res) => {
       console.log(err);
       res.status(404);
     } else {
-      res.status(200);
+      res.status(200).send(agent);
     }
   });
 });

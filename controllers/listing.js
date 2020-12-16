@@ -32,11 +32,11 @@ getAgent = (id, cb) => {
   });
 }
 postListing = (listing, cb) => {
-  listings.insertOne('listing', listing, (err, listing) => {
+  listings.insertOne('listing', listing, (err, response) => {
     if (err) {
       cb(err, null);
     } else {
-      cb(null, listing);
+      cb(null, response);
     }
   });
 }

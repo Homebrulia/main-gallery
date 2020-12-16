@@ -4,27 +4,67 @@ var mongo = require('../db/mongo.js');
 /* eslint-disable array-callback-return */
 // const schema = require('../db/schema.js');
 
-getListings = (req, res) => {
-  // if(typeof req.params.id !== "number") {
-  //   res.sendStatus(403)
-  // }
-  const query = listings.ListingsModel.where({ listing_id: req.params.id });
-  mongo.connect();
-  query.find((err, listings) => {
-   if (err) {
-     res.status(404)
-     console.log(err.message);
-     mongo.db.close();
-   } else {
-      res.status(200).send(listings);
-      mongo.db.close();
+getListing = (id, cb) => {
+  listings.getOne('listing', id, (err, listing) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, listing);
     }
-  }
- )
+  });
 }
-module.exports = {
-  getListings
+getUser = (id, cb) => {
+  listings.getOne('user', id, (err, user) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, user);
+    }
+  });
 }
+getAgent = (id, cb) => {
+  listings.getOne('agent', id, (err, agent) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, agent);
+    }
+  });
+}
+postListing = (listing, cb) => {
+  listings.insertOne('listing', listing, (err, response) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, response);
+    }
+  });
+}
+postUser = (user, cb) => {
+  listings.insertOne('user', user, (err, listing) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, user);
+    }
+  });
+}
+postAgent = (agent, cb) => {
+  listings.insertOne('agent', agent, (err, listing) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, agent);
+    }
+  });
+}
+module.exports.getListing = getListing;
+module.exports.getUser = getUser;
+module.exports.getAgent = getAgent;
+module.exports.postListing = postListing;
+module.exports.postAgent = postAgent;
+module.exports.postUser = postUser;
+
 
 
 

@@ -139,10 +139,49 @@ function getAll(objType, callback) {
     }
   }
 }
+function getOne(objType, objId, callback) {
+  switch (objType) {
+    case 'listing': {
+      ListingsModel.find({listing_id: objId}, callback);
+      break;
+    }
+    case 'user': {
+      UsersModel.find({user_id: objId}, callback);
+      break;
+    }
+    case 'agent': {
+      AgentsModel.find({agent_id: objId}, callback);
+      break;
+    }
+  }
+}
+function createIndexes(objType) {
+  switch (objType) {
+    case 'listing': {
+      ListingsModel.createIndexes([
+        { listing_id: 1},
+        { user_id: 1 },
+        { agent_id: 1 },
+        { address: "text" },
+        { price: 1 }
+      ]);
+      break;
+    }
+    case 'user': {
+      UsersModel.createIndexes({}, callback);
+      break;
+    }
+    case 'agent': {
+      AgentsModel.createIndexes({}, callback);
+      break;
+    }
+  }
+}
 
 module.exports.ListingsModel = ListingsModel;
 module.exports.UsersModel = UsersModel;
 module.exports.AgentsModel = AgentsModel;
 module.exports.insertOne = insertOne;
 module.exports.insertMany = insertMany;
+module.exports.getOne = getOne;
 module.exports.getAll = getAll;

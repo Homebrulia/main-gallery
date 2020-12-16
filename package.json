@@ -8,7 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "nodemon server/index.js",
+    "start": "node server/index.js",
     "webpack": "webpack -d --watch",
     "seed-database": "node ./db/seed.js",
     "test": "jest",
@@ -47,6 +47,7 @@
     "express": "^4.15.0",
     "mongodb": "3.6.2",
     "mongoose": "^5.10.12",
+    "newrelic": "^7.0.2",
     "nodemon": "^2.0.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"

@@ -91,7 +91,7 @@ function genData(dataType, id) {
 // generate a randomized listing object
 function createListing(listing_id) {
   return (
-    `${listing_id},^,${randomInt(10000000)},^,${randomInt(1000000)},^,${!!(randomInt(2))},^,${!!(randomInt(2))},^,${!!(randomInt(2))},^,${!!(randomInt(2))},^,${!!(randomInt(2))},^,${streets[randomInt(10000)]}, ${cities[randomInt(10000)]}, ${state[randomInt(10000)]} ${zipcode[randomInt(10000)]},^,${faker.finance.amount()},^,${randomInt(10)},^,${randomInt(5)},^,${randomImages()},^,${randomStringArr(randomInt(5), undefined, ['Elementary', 'Middle School', 'High'])},^,${randomInt(10)}\n`
+    `${listing_id}^${randomInt(10000000)}^${randomInt(1000000)}^${!!(randomInt(2))}^${!!(randomInt(2))}^${!!(randomInt(2))}^${!!(randomInt(2))}^${!!(randomInt(2))}^${streets[randomInt(10000)]}, ${cities[randomInt(10000)]}, ${state[randomInt(10000)]} ${zipcode[randomInt(10000)]}^${faker.finance.amount()}^${randomInt(10)}^${randomInt(5)}^${randomImages()}^${randomStringArr(randomInt(5), undefined, ['Elementary', 'Middle School', 'High'])}^${randomInt(10)}\n`
     );
 }
 // generate random payment info
@@ -110,18 +110,18 @@ function createPaymentInfo(length) {
 function createUser(user_id) {
 
   return (
-    `${user_id},^,[${randomIntArr(randomInt(10))}],^,[${randomStringArr(randomInt(5))}],^,${firstNames[randomInt(10000)]} ${lastNames[randomInt(10000)]},^,${faker.internet.email()},^,${randomNum(10)},^,${cities[randomInt(10000)]},^,${userTypes[randomInt(userTypes.length)]},^,${createPaymentInfo(randomInt(5))}\n`
+    `${user_id}^[${randomIntArr(randomInt(10))}]^[${randomStringArr(randomInt(5))}]^${firstNames[randomInt(10000)]} ${lastNames[randomInt(10000)]}^${faker.internet.email()}^${randomNum(10)}^${cities[randomInt(10000)]}^${userTypes[randomInt(userTypes.length)]}^${createPaymentInfo(randomInt(5))}\n`
   );
 }
 // create a randomized agent object
 function createAgent(agent_id) {
   return (
-    `${agent_id},^,${firstNames[randomInt(10000)]} ${lastNames[randomInt(10000)]},^,${faker.internet.email()},^,${randomNum(10)},^,${cities[randomInt(10000)]},^,[${randomIntArr(randomInt(10))}]\n`
+    `${agent_id}^${firstNames[randomInt(10000)]} ${lastNames[randomInt(10000)]}^${faker.internet.email()}^${randomNum(10)}^${cities[randomInt(10000)]}^[${randomIntArr(randomInt(10))}]\n`
   );
 }
 // WRITE-TO-FILE FUNCTION
 /// //////////////////////////////////////////////////////////////////////////////////
-function toCSVFile(fileLength, objectType) {
+function toCSVFile(fileLength, objectType, callback) {
   const writer = fs.createWriteStream(`${__dirname}/data/${objectType}s.csv`);
   let counter = 0;
   const start = Date.now();
@@ -132,15 +132,15 @@ function toCSVFile(fileLength, objectType) {
         let header = '';
         switch (objectType) {
           case 'listing': {
-            header = `listing_id,^,user_id,^,agent_id,^,sale,^,pending,^,new,^,construction,^,petFriendly,^,address,^,price,^,bed,^,bath,^,images,^,schools,^,crime\n`
+            header = `listing_id^user_id^agent_id^sale^pending^new^construction^petFriendly^address^price^bed^bath^images^schools^crime\n`
             break;
           }
           case 'user': {
-            header = `user_id,^,favorites,^,searches,^,name,^,email,^,phoneNumber,^,location,^,userType,^,paymentInfo\n`
+            header = `user_id^favorites^searches^name^email^phoneNumber^location^userType^paymentInfo\n`
             break;
           }
           case 'agent': {
-            header = `agent_id,^,name,^,email,^,phoneNumber,^,location,^,managing\n`
+            header = `agent_id^name^email^phoneNumber^location^managing\n`
             break;
           }
         }
@@ -151,6 +151,7 @@ function toCSVFile(fileLength, objectType) {
         writer.write(genData(objectType, counter));
         writer.end();
         console.log(`${objectType} Data generation done! Whole process took:`, `${(Date.now() - start) / (1000 * 60)} minutes`);
+        callback();
       } else {
         ok = writer.write(genData(objectType, counter));
       }
@@ -163,7 +164,13 @@ function toCSVFile(fileLength, objectType) {
   }
   write();
 }
-toCSVFile(1000000, 'agent');
-toCSVFile(10000000, 'listing');
-toCSVFile(10000000, 'user');
+toCSVFile(1100000, 'agent', () => {
+  toCSVFile(11000000, 'listing', () => {
+    toCSVFile(11000000, 'user', () => {
+      console.log('All done')
+    });
+  });
+});
+
+
 

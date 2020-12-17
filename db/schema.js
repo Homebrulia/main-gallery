@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var mongo = require('./mongo.js');
 
-mongoose.connect('mongodb://rolo:password@13.57.39.142/main-gallery-listings', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://rolo:password@13.57.40.2/main-gallery-listings', { useNewUrlParser: true, useUnifiedTopology: true });
 
 var listingSchema = mongoose.Schema({
   listing_id: Number,

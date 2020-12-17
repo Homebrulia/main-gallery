@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-const url = 'mongodb://localhost/main-gallery-listings';
+const url = 'mongodb://rolo:password@13.57.39.142/main-gallery-listings';
 
 const connect = () => mongoose.connect(url, { useNewUrlParser: true });
 

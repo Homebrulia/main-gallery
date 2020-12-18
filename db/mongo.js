@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
-const url = 'mongodb://rolo:password@13.57.40.2/main-gallery-listings';
+let databaseInstanceIp = '13.57.40.2'
+const url = `mongodb://rolo:password@${databaseInstanceIp}/main-gallery-listings`;
 
 const connect = () => mongoose.connect(url, { useNewUrlParser: true });
 

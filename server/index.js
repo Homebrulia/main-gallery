@@ -21,4 +21,5 @@ app.listen(PORT, () => {
 
 
 app.use('/api/gallery', router);
-app.get('/loaderio-cffcf71d41a946498d876a3c63ea1ecc', (req, res) => {res.send('loaderio-cffcf71d41a946498d876a3c63ea1ecc')});
+let loaderIoKey = 'loaderio-73f15b59d9e698a129b86e043e2ed6d7';
+app.get(`/${loaderIoKey}`, (req, res) => {res.send(`${loaderIoKey}`)});

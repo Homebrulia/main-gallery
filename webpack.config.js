@@ -1,4 +1,6 @@
 const path = require('path');
+const CompressionPlugin = require("compression-webpack-plugin");
+var BrotliPlugin = require('brotli-webpack-plugin');
 
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
@@ -9,6 +11,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: DIST_DIR,
+    publicPath: '/static/',
   },
   module: {
     rules: [
@@ -37,6 +40,15 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new CompressionPlugin(),
+    new BrotliPlugin({
+      asset: '[path].br[query]',
+      test: /\.(js|css|html|svg)$/,
+      threshold: 10240,
+      minRatio: 0.8
+  })
+  ],
   resolve: {
     extensions: ['.js', '.json', '.jsx', 'css'],
   },

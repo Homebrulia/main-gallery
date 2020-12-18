@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const queryString = window.location.pathname === '/' ? '/gallery/1' :  window.location.pathname;
+    const queryString = window.location.pathname === '/' ? '/gallery/1/' :  window.location.pathname;
     axios.get('/api' + queryString + 'homesData')
     .then((res) => {
       this.setState({listing: res.data})

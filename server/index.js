@@ -14,11 +14,11 @@ app.use(express.static('client/dist'));
 
 
 // app.get('/listings/:id/db', controller.getAll);
-
+let serviceInstanceIp = '3.101.140.84';
 app.listen(PORT, () => {
-  console.log(`Listening on http://3.101.140.84:${PORT}/gallery/1/`);
+  console.log(`Listening on http://${serviceInstanceIp}:${PORT}/gallery/1/`);
 });
 
 
 app.use('/api/gallery', router);
-
+app.get('/loaderio-cffcf71d41a946498d876a3c63ea1ecc', (req, res) => {res.send('loaderio-cffcf71d41a946498d876a3c63ea1ecc')});

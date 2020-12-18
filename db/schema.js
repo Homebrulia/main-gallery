@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
-var mongo = require('./mongo.js');
 let databaseInstanceIp = '13.57.40.2'
-mongoose.connect(`mongodb://rolo:password@${databaseInstanceIp}/main-gallery-listings`, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb://rolo:password@${databaseInstanceIp}/main-gallery-listings`, { useNewUrlParser: true, useUnifiedTopology: true, poolSize: 15 });
 
 var listingSchema = mongoose.Schema({
   listing_id: Number,

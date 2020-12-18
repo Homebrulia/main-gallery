@@ -2,17 +2,17 @@ import http from 'k6/http';
 
 export let options = {
   stages: [
-    { duration: '2m', target: 10 },
-    { duration: '2m', target: 100 },
-    { duration: '2m', target: 1000 },
-    { duration: '2m', target: 100 },
-    { duration: '2m', target: 10 },
+    { duration: '1m', target: 10 },
+    { duration: '1m', target: 100 },
+    { duration: '1m', target: 1000 },
+    { duration: '1m', target: 100 },
+    { duration: '1m', target: 10 },
   ],
   rps: 1000,
 };
 
 export default function () {
-  let url = `http://localhost:8040/api/gallery/homesData`;
+  let url = `http://13.52.248.200:80/api/gallery/api/gallery/homesData`;
   let listing_id = 20000000 + Math.floor(Math.random() * 10000000);
   let payload = {
     listing_id: listing_id,
